@@ -1,0 +1,81 @@
+
+.hero-design {
+    position: relative; /* Conteneur parent pour les éléments positionnés en absolu */
+    height: 100vh; /* Hauteur de la section hero */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white; /* Couleur du texte */
+    text-align: center;
+    overflow: hidden; /* Cache tout débordement */
+  }
+  
+  .hero-text {
+    position: relative; 
+    z-index: 1;
+    font-size: 2em;
+    font-family: "Libre Franklin", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 300;
+    font-style: normal;
+  }
+  
+  .hero-explore {
+    position: relative; /* Position relative pour rester dans le flux */
+    z-index: 1; /* Place le bouton Explore au-dessus de l'arrière-plan */
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 40px;
+    width: fit-content;
+    padding: 6px 8px;
+    border-radius: 40px;
+    background-color: white;
+    cursor: pointer;
+    box-shadow: 3px 3px 3px 3px rgba(0, 0, 0, 0.5);
+    transition: transform 0.5s ease;
+  }
+  
+  .hero-explore:hover{
+    transform: scale(1.1) translateY(10px);
+  }
+
+  .hero-explore p {
+    font-size: 1em;
+    margin-top: 9px;
+    color: rgb(49, 49, 49);
+  }
+   
+  
+  .hero-explore img {
+    width: 40px;
+    height: auto;
+  }
+  
+  .hero-dots-play {
+    position: absolute; /* Position absolue pour superposer */
+    bottom: 20px; /* Position en bas */
+    left: 50%; /* Centrage horizontal */
+    transform: translateX(-50%);
+    z-index: 1; /* Place les points au-dessus de l'arrière-plan */
+  }
+  
+  .hero-dots {
+    display: flex;
+    gap: 10px;
+    list-style: none;
+    padding: 0;
+  }
+  
+  .hero-dot {
+    width: 12px;
+    height: 12px;
+    background-color: white;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  
+  .hero-dot.orange {
+    background-color: orange; /* Couleur pour le point actif */
+  }

@@ -1,0 +1,19 @@
+.background{
+    position: absolute; /* Position absolue pour superposer */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Assure que l'image ou la vidéo couvre tout l'espace */
+    z-index: 0; /* Place l'arrière-plan derrière les autres éléments */
+
+}
+
+@keyframes fadeIn{
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+.fade-in{
+    animation: fadeIn 500ms ease-in-out;
+}
