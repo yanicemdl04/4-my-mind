@@ -42,7 +42,7 @@ function Carousel() {
         <AnimatedSection>
         <div className="justify-center items-center text-center">
           <h2>Plus de 1 000 avis 5 étoiles.</h2>
-          <p>Découvrez pourquoi les utilisateurs adorent 4 My Mind.</p>
+          <h3>Découvrez pourquoi les utilisateurs adorent 4 My Mind.</h3>
         </div>
         </AnimatedSection>
       </div>
@@ -60,10 +60,10 @@ function Carousel() {
                     />
                   </div>
                   <div className="p-6 flex flex-col items-center text-center gap-4">
-                    <h3 className="text-xl font-bold">{d.nom}</h3>
+                    <h4 className="text-xl font-bold">{d.nom}</h4>
                     <p className="text-gray-600 line-clamp-3">{d.review}</p>
-                    <button className="button hover:bg-blue-600 transition-colors duration-300">
-                      Read more
+                    <button className="button hover:bg-gold-600 transition-colors duration-300">
+                      En savoir plus
                     </button>
                   </div>
                 </div>

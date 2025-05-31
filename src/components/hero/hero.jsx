@@ -2,7 +2,7 @@ import React from 'react'
 import './hero.css'
 import arrow from '../../assets/images/fleche-droite.png'
 
-const hero = ({heroCount, setHeroCount, heroData}) => {
+const Hero = ({heroCount, setHeroCount, heroData}) => {
   return (
     <div className='hero-design'>
       <div className="hero-text">
@@ -28,4 +28,4 @@ const hero = ({heroCount, setHeroCount, heroData}) => {
   )
 }
 
-export default hero
+export default Hero

@@ -1,4 +1,3 @@
-
 .slick-slider {
   margin: 0 20px;
 }
@@ -12,7 +11,7 @@
 }
 
 .slick-dots li button:before {
-  color: goldenrod;
+  color: #e3b62c;
   font-size: 12px;
 }
 
@@ -23,7 +22,7 @@
 
 .slick-prev:before, 
 .slick-next:before {
-  color: goldenrod;
+  color: #e3b62c; /* Couleur des flèches */
   font-size: 34px; /* Taille plus visible */
 }
 
@@ -53,6 +52,21 @@
     border: none;
 }
 
+.button {
+  background-color: #d4af37; /* Jaune foncé */
+  color: white; /* Couleur du texte */
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button:hover {
+  background-color: #b8860b; /* Jaune encore plus foncé au survol */
+}
+
 .slick-slide h3{
   font-family: "Hind Madurai", sans-serif;
   font-weight: 500;
@@ -66,22 +80,6 @@
   font-style: normal;
 }
 
-.title h2{
-  margin-bottom: 50px;
-  font-size: 2.7em;
-  color: rgb(0, 0, 0);
-  font-family: "Alice", serif;
-    font-weight: bold;
-    font-style: normal;
-    font-weight: 400;
-}
-
-.title p{
-  font-family: "Hind Madurai", sans-serif;
-  font-weight: 500;
-  font-style: normal;
-  color: goldenrod;
-  font-size: 1.3em;
-  margin-top: -30px;
-  margin-bottom: 50px;
+.title{
+  margin-top: -120px;
 }

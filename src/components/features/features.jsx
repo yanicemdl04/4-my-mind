@@ -1,7 +1,7 @@
 import React from 'react';
 import AnimatedSection from '../../assets/AnimatedSection.jsx';
-import CardReseau3 from '../../assets/images/Card réseau3.png';
-import CardReseau4 from '../../assets/images/Card réseau4.png';
+import CardReseau3 from '../../assets/images/Card-reseau3.png';
+import CardReseau4 from '../../assets/images/Card-reseau4.png';
 import cards3 from '../../assets/images/dormirr.png';
 import fonction from '../../assets/images/mental-health.jpg';
 import fonction1 from '../../assets/images/colour-friends.jpg';
@@ -16,7 +16,7 @@ function Features() {
           <AnimatedSection>
             <div className="title text-center">
               <h2>Nous sommes là pour vous aider <br /> à vous sentir mieux.</h2>
-              <p>Profitez de nos services</p>
+              <h3>Profitez de nos services</h3>
             </div>
           </AnimatedSection>
 
@@ -46,22 +46,25 @@ function Features() {
         <AnimatedSection>
           <div className="title text-center">
             <h2>Soyez bien préparé pour votre prochain<br /> rendez-vous chez le médecin.</h2>
-            <p>Suivez vos symptômes et vos mesures</p>
+            <h3>Suivez vos symptômes et vos mesures</h3>
           </div>
         </AnimatedSection>
 
         <AnimatedSection>
-          <div className='feats2'>
+          <div className="feats2">
             <div className="container">
               <div className="row fonction align-items-center">
                 <div className="col-md-5 paragraph">
-                  <h3>Soyez rappelé de toutes vos prises grâce à des alarmes de médicaments fiables</h3>
-                  <p>Rappels fiables pour vos comprimés, pilules et autres médicaments, ainsi que pour vos mesures, vos rendez-vous chez le médecin ou vos contrôles de symptômes.
-                    L'application MyTherapy garde une trace de vos médicaments et de votre thérapie pour vous, afin que vous puissiez vous concentrer sur d'autres choses importantes.
+                  <h2>Reprends le contrôle de ton bien-être mental</h2>
+                  <p>
+                    Chez <strong>4 My Mind</strong>, nous croyons que chaque jour est une nouvelle chance de se 
+                    reconnecter à soi-même. Grâce à des outils simples mais puissants, tu peux suivre tes émotions, 
+                    exprimer ce que tu ressens, et prendre soin de ton esprit comme tu prends soin de ton corps. 
+                    Tu n'es pas seul·e dans ce voyage : nous sommes là pour t’accompagner à chaque étape.
                   </p>
                 </div>
                 <div className="col-md-7 visuel text-end">
-                  <img src={fonction} alt="fontionalités" className="img-fluid" />
+                  <img src={fonction} alt="Fonctionnalités de suivi" className="img-fluid rounded shadow-lg" />
                 </div>
               </div>
             </div>
@@ -69,17 +72,20 @@ function Features() {
         </AnimatedSection>
 
         <AnimatedSection delay={0.1}>
-          <div className='feats3'>
+          <div className="feats3">
             <div className="container">
               <div className="row fonction align-items-center">
                 <div className="col-md-7 visuel">
-                  <img src={fonction1} alt="fontionalités" className="img-fluid" />
+                  <img src={fonction1} alt="Suivi médical" className="img-fluid rounded shadow-lg" />
                 </div>
                 <div className="col-md-5 paragraph">
-                  <h3>Suivez vos symptômes et vos mesures</h3>
-                  <p>Les fonctionnalités complètes de MyTherapy vous permettent d'être mieux préparé que jamais pour votre prochain rendez-vous chez le médecin.
-                  En ayant un aperçu détaillé de votre traitement, de vos apports, de l'évolution de vos symptômes, de vos 
-                  mesures et de votre humeur, votre médecin peut avoir une meilleure idée de votre bien-être. Cela peut aider à éclairer les décisions et à optimiser votre traitement plus efficacement.</p>
+                  <h2>Ta santé mentale compte autant que ta santé physique</h2>
+                  <p>
+                  Notre application t’aide à prendre conscience de ton état émotionnel, à identifier les sources de stress
+                   ou d’anxiété, et à cultiver des habitudes qui favorisent l’équilibre. À travers un journal expressif, 
+                   des exercices de relaxation et un suivi personnalisé, <strong>4 My Mind</strong> devient ton allié 
+                   quotidien pour vivre une vie plus calme, plus lucide, et plus alignée.
+                  </p>
                 </div>
               </div>
             </div>

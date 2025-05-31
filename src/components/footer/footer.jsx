@@ -1,6 +1,8 @@
 import React from "react"
-import { footer } from "./Data"
+import footer from "./Data"
+import image1 from '../../assets/images/quatre.png';
 import "./footer.css"
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   return (
@@ -21,7 +23,7 @@ const Footer = () => {
         <div className='container'>
           <div className='box'>
             <div className='logo'>
-              <img src='../images/logo-light.png' alt='' />
+              <Link to='/' className='nav-link'><img src={image1} alt='logo' className="logo-img" /></Link>
               <h2>Do You Need Help With Anything?</h2>
               <p>Receive updates, hot deals, tutorials, discounts sent straignt in your inbox every month</p>
 
@@ -32,13 +34,12 @@ const Footer = () => {
             </div>
           </div>
 
-          {footer.map((val) => (
-            <div className='box'>
-              <h3>{val.title}</h3>
+          {footer.map((val, i) => (
+            <div className='box' key={i}>
               <ul>
-                {val.text.map((items) => (
-                  <li> {items.list} </li>
-                ))}
+                <li>
+                  <Link to={val.path}>{val.text}</Link>
+                </li>
               </ul>
             </div>
           ))}

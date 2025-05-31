@@ -1,3 +1,25 @@
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* puis tes styles globaux */
+
+h2, h4, h5, h6 {
+    font-family: "Alice", serif;
+    font-weight: 400;
+    color: #3c1f0c; 
+    margin-bottom: 10px;
+}
+
+h2 {
+    font-size: 3em;
+}
+
+h3 {
+    font-size: 1.5em;
+    font-family: "Hind Madurai", sans-serif;
+    font-weight: 500;
+    color: #daa520;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}

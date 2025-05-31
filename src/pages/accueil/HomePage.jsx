@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Background from '../../components/background/background';
+import Background from '../../components/background/background.jsx';
 import Navbar from '../../components/navbar/navbar.jsx';
 import Hero from '../../components/hero/hero.jsx';
 import Features from '../../components/features/features.jsx';

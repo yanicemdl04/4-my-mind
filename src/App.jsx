@@ -21,10 +21,7 @@ const App = () => {
       <Route path="/journal" element={<JournalPage />} />
       <Route path="/exercises" element={<ExercisesPage />} />
       <Route path="/mood-tracker" element={<MoodTrackerPage />} />
-      <Route path="/mood-tracker" element={<MoodTrackerPage />} />
-      {/* Route par défaut */}
       <Route path="*" element={<div>Page non trouvée</div>} />
-  
     </Routes>
   );
 };
