@@ -1,44 +1,39 @@
-export const nav = [
+export const navbar = [
 	{
-		text: "home",
+		text: "Accueil",
 		path: "/",
 	},
 	{
-		text: "about",
+		text: "About_us",
 		path: "/about",
 	},
 	{
-		text: "services",
-		path: "/about",
-	},
-	{
-		text: "blog",
-		path: "/blog",
-	},
-	{
-		text: "pricing",
-		path: "/pricing",
-	},
-	{
-		text: "contact",
+		text: "Nous_contacter",
 		path: "/contact",
+	},
+	{
+		text: "Login",
+		path: "/login",
 	},
 ];
 
 const footer = [
 	{
-		text: "privacy policy",
-		path: "/privacy-policy",
+		text: "Accueil",
+		path: "/",
 	},
 	{
-		text: "terms of service",
-		path: "/terms-of-service",
+		text: "About_us",
+		path: "/about",
 	},
 	{
-		text: "support",
-		path: "/support",
+		text: "Nous_contacter",
+		path: "/contact",
+	},
+	{
+		text: "Login",
+		path: "/login",
 	},
 ];
-
 
 export default footer;

@@ -60,10 +60,10 @@ function Carousel() {
                     />
                   </div>
                   <div className="p-6 flex flex-col items-center text-center gap-4">
-                    <h4 className="text-xl font-bold">{d.nom}</h4>
+                    <h3 className="text-xl font-bold">{d.nom}</h3>
                     <p className="text-gray-600 line-clamp-3">{d.review}</p>
-                    <button className="button hover:bg-gold-600 transition-colors duration-300">
-                      En savoir plus
+                    <button className="button hover:bg-blue-600 transition-colors duration-300">
+                      Read more
                     </button>
                   </div>
                 </div>

@@ -1,58 +1,72 @@
-import React from 'react';
-import Navbar from '../../components/navbar/navbar';
-import Footer from '../../components/footer/footer';
-import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import './login.css';
+import { Link, useNavigate } from 'react-router-dom';
+import image from '../../assets/images/group-people.jpg';
 
 const LoginPage = () => {
+  const [form, setForm] = useState({ email: '', password: '' });
+  const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    navigate('/menu');
+  };
+
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Navbar />
-      <div className="container mx-auto px-4 pt-32 pb-16">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="max-w-md mx-auto bg-white rounded-2xl shadow-lg p-8"
-        >
-          <h1 className="text-4xl font-alice text-center mb-8">Connexion</h1>
-          <form className="space-y-6">
-            <div>
-              <label htmlFor="email" className="block text-sm font-hind-madurai text-gray-700 mb-2">
-                Email
-              </label>
+    <div className='signLog'>
+      <div className="login-page container signin-responsive">
+        <div className="left">
+          <div className="header">
+            <h2 className="animation a1">Bienvenue</h2>
+            <h4 className="animation a2">Connecte-toi à 4MyMind</h4>
+          </div>
+          <form className="form" onSubmit={handleSubmit}>
+            <div className="form-group animation a3">
+              <label htmlFor="email" className="form-label">Adresse email</label>
               <input
+                className="form-field"
                 type="email"
+                name="email"
                 id="email"
-                className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                placeholder="Ton adresse email"
+                value={form.email}
+                onChange={handleChange}
+                required
               />
             </div>
-            <div>
-              <label htmlFor="password" className="block text-sm font-hind-madurai text-gray-700 mb-2">
-                Mot de passe
-              </label>
+            <div className="form-group animation a4">
+              <label htmlFor="password" className="form-label">Mot de passe</label>
               <input
+                className="form-field"
                 type="password"
+                name="password"
                 id="password"
-                className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                placeholder="Ton mot de passe secret"
+                value={form.password}
+                onChange={handleChange}
+                required
               />
             </div>
-            <button
-              type="submit"
-              className="w-full bg-blue-600 text-white py-3 rounded-lg font-hind-madurai hover:bg-blue-700 transition-colors"
-            >
+            <button type="submit" className="form-field animation a5" style={{ background: 'gold', color: '#000', fontWeight: 600 }}>
               Se connecter
             </button>
+            <p className="animation a6" style={{ marginTop: 20, textAlign: 'right' }}>
+              Pas encore de compte ? <Link to="/SignIn">S'inscrire</Link>
+            </p>
           </form>
-          <p className="mt-4 text-center text-sm text-gray-600">
-            Pas encore de compte ?{' '}
-            <Link to="/register" className="text-blue-600 hover:text-blue-800">
-              S'inscrire
-            </Link>
-          </p>
-        </motion.div>
+        </div>
+        <div className="right">
+          <img
+            src={image}
+            alt="Illustration"
+            style={{ width: '100%', height: '100vh', objectFit: 'cover', display: 'block' }}
+          />
+        </div>
       </div>
-      <Footer />
     </div>
   );
 };

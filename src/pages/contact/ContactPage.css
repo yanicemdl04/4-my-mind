@@ -1,0 +1,54 @@
+/* ContactPage.css */
+.contact-page {
+  min-height: 100vh;
+  background: linear-gradient(to bottom right, #fef3c7, #fef9c3, #ffedd5);
+  padding-top: 5rem;
+}
+
+.contact-header {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(to right, #fef08a, #fde68a);
+  padding: 4rem 0;
+}
+
+.header-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, rgba(253, 230, 138, 0.2), rgba(252, 211, 77, 0.2));
+}
+
+.header-content {
+  position: relative;
+  max-width: 56rem;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.heart-icon-container {
+  width: 6rem;
+  height: 6rem;
+  background: linear-gradient(to bottom right, #facc15, #f59e0b);
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
+}
+
+.heart-icon-container:hover {
+  transform: scale(1.05);
+}
+
+.heart-icon {
+  width: 3rem;
+  height: 3rem;
+  color: #3c1f0c;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}

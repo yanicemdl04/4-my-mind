@@ -1,0 +1,15 @@
+.mood {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+
+.mood .mood2 {
+  margin-top: 150px;
+}
+
+@media (max-width: 900px) {
+  .mood2 {
+    padding: 1rem !important;
+  }
+}

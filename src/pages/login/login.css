@@ -1,0 +1,213 @@
+body login-signin-page{
+  font-family: 'Rubik', sans-serif;
+}
+
+.login-signin-page .container{
+  display: flex;
+  height: 100vh;
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: center;
+}
+
+.left {
+  width: 440px;
+  min-width: 320px;
+  max-width: 100%;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 2px 24px 0 rgba(0,0,0,0.07);
+  z-index: 2;
+  animation-name: left;
+  animation-duration: 1s;
+  animation-fill-mode: both;
+  animation-delay: 1s;
+}
+
+.right {
+  flex: 1;
+  min-width: 0;
+  height: 100vh;
+  display: block;
+  position: relative;
+  background-color: black;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  transition: 0.8s;
+}
+
+
+
+.header > h2 {
+  margin: 0;
+  color: gold;
+}
+
+.header > h4 {
+  margin-top: 10px;
+  font-weight: normal;
+  font-size: 15px;
+  color: rgba(0,0,0,.4);
+}
+
+.form {
+  max-width: 80%;
+  display: flex;
+  flex-direction: column;
+}
+
+.form > p {
+  text-align: right;
+}
+
+.form > p > a {
+  color: #000;
+  font-size: 14px;
+}
+
+.form-field {
+  height: 46px;
+  padding: 0 16px;
+  border: 2px solid #ddd;
+  border-radius: 4px;
+  font-family: 'Rubik', sans-serif;
+  outline: 0;
+  transition: .2s;
+  margin-top: 20px;
+}
+
+.form-field:focus {
+  border-color: #0f7ef1;
+}
+
+.form > button {
+  padding: 12px 10px;
+  border: 0;
+  background: linear-gradient(to right, gold 0%,#7a5e00 100%); 
+  border-radius: 3px;
+  margin-top: 10px;
+  color: #fff;
+  letter-spacing: 1px;
+  font-family: 'Rubik', sans-serif;
+}
+
+.animation {
+  animation-name: move;
+  animation-duration: .4s;
+  animation-fill-mode: both;
+  animation-delay: 2s;
+}
+
+.a1 {
+  animation-delay: 2s;
+}
+
+.a2 {
+  animation-delay: 2.1s;
+}
+
+.a3 {
+  animation-delay: 2.2s;
+}
+
+.a4 {
+  animation-delay: 2.3s;
+}
+
+.a5 {
+  animation-delay: 2.4s;
+}
+
+.a6 {
+  animation-delay: 2.5s;
+}
+
+@keyframes move {
+  0% {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-40px);
+  }
+
+  100% {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+}
+
+@keyframes left {
+  0% {
+    opacity: 0;
+    width: 0;
+  }
+
+  100% {
+    opacity: 1;
+    padding: 20px 40px;
+    width: 440px;
+  }
+}
+
+
+
+/* Responsive pour SignInPage */
+.signin-responsive {
+  flex-wrap: wrap;
+}
+@media (max-width: 900px) {
+  .container, .signin-responsive {
+    flex-direction: column;
+    height: auto;
+  }
+  .left, .right {
+    width: 100% !important;
+    min-width: 0;
+    padding: 24px 0;
+    height: auto;
+  }
+  .right {
+    min-height: 180px;
+    height: 180px;
+  }
+  .form {
+    max-width: 100%;
+  }
+}
+
+/* Labels au-dessus des champs */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-top: 18px;
+}
+.form-label {
+  font-size: 1.05rem;
+  font-weight: 500;
+  margin-bottom: 6px;
+  color: #222;
+}
+
+.login-signin-page .right .signin-image-bg {
+  position: relative;
+  overflow: hidden;
+}
+
+
+.login-signin-page .signin-image-bg {
+  opacity: 0;
+  transition: opacity 0.7s cubic-bezier(.4,2,.6,1);
+  will-change: opacity;
+}
+
+.login-signin-page .signin-image-bg.fade-in {
+  opacity: 1;
+}
+
+.login-signin-page .signin-image-bg.fade-out {
+  opacity: 0;
+}
