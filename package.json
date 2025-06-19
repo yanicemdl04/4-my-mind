@@ -1,7 +1,7 @@
 {
-  "name": "practice",
-  "version": "0.1.0",
+  "name": "4-my-mind",
   "private": true,
+<<<<<<< HEAD
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
@@ -18,17 +18,27 @@
     "vite": "^5.1.0 ",
     "web-vitals": "^2.1.4"
   },
+=======
+  "version": "0.1.0",
+  "type": "module",
+>>>>>>> e6506250cbf9858bbba40b58b01a9174722a5a59
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+  "dependencies": {
+    "@supabase/supabase-js": "^2.39.3",
+    "bootstrap": "^5.3.2",
+    "framer-motion": "^11.0.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-intersection-observer": "^9.5.3",
+    "react-router-dom": "^6.21.3",
+    "react-slick": "^0.29.0",
+    "slick-carousel": "^1.8.1"
   },
+<<<<<<< HEAD
   "browserslist": {
     "production": [
       ">0.2%",
@@ -49,3 +59,13 @@
     "tailwindcss": "^4.1.7"
   }
 }
+=======
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.2.1",
+    "autoprefixer": "^10.4.17",
+    "postcss": "^8.4.33",
+    "tailwindcss": "^3.4.1",
+    "vite": "^5.0.12"
+  }
+}
+>>>>>>> e6506250cbf9858bbba40b58b01a9174722a5a59
