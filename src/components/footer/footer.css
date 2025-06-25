@@ -1,73 +1,79 @@
-.footerContact {
-  background-color: rgba(255, 253, 134, 0.4); /* Couleur de fond avec opacité */
-    padding: 40px 0;
-    color: #3c1f0c;
-    margin-top: 100px;
-  }
-  .footerContact h1 {
-    font-size: 40px;
-  }
-  /* Section principale du footer */
-footer {
-  background-color: #3c1f0c; /* Couleur de fond sombre */
-  padding: 60px 20px;
-  color: white;
+.footer-root .footerContact {
+  background-color: rgba(255, 253, 134, 0.3);
+  padding: 40px 20px;
+  color: #3c1f0c;
+  text-align: center;
 }
 
-footer .container {
-  display: grid;
-  grid-template-columns: 3fr 2fr 2fr 2fr; /* Répartition des colonnes */
-  grid-gap: 30px;
-  max-width: 1200px;
-  margin: 0 auto;
+.footer-root .footerContact h1 {
+  font-size: 32px;
+  margin-bottom: 10px;
 }
 
-footer img {
-  width: 150px;
-  margin-bottom: 20px;
+.footer-root .footerContact p {
+  font-size: 16px;
+  color: #915a17;
 }
 
-footer h2, footer h3 {
+.footer-root .footerContact .btn-contact {
+  background-color: #e3b62c;
+  color: #3c1f0c;
+  padding: 12px 24px;
   font-weight: 600;
-  color: #fffd86; /* Texte en jaune clair */
-  margin-bottom: 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background 0.3s ease;
+  margin-top: 20px;
+  display: inline-block;
 }
 
-footer p {
-  color: rgba(255, 255, 255, 0.8); /* Texte légèrement transparent */
-  margin: 15px 0;
-  line-height: 1.6;
+.footer-root .footerContact .btn-contact:hover {
+  background-color: #ffe60d;
 }
 
-footer ul {
-  list-style: none;
-  padding: 0;
+/* ======== FOOTER PRINCIPAL ========== */
+.footer-root footer {
+  background-color: #3c1f0c;
+  color: white;
+  padding: 60px 20px;
 }
 
-footer ul li {
-  display: block;
+.footer-root footer .footer-main {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 30px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.footer-root footer .logo-box h2 {
+  color: #ffe60d;
+  margin: 20px 0 10px;
+  font-size: 20px;
+}
+
+.footer-root footer .logo-box p {
   color: rgba(255, 255, 255, 0.8);
-  margin-bottom: 15px;
-  transition: color 0.3s ease;
+  font-size: 14px;
 }
 
-footer ul li:hover {
-  color: #fffd86; /* Couleur jaune clair au survol */
+.footer-root footer .input-group {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
 }
 
-footer input {
-  background-color: #fff;
-  padding: 15px;
-  width: 100%;
+.footer-root footer .input-group input {
+  flex: 1;
+  padding: 12px;
   border-radius: 5px;
   border: none;
-  margin-bottom: 15px;
 }
 
- button {
-  background-color: #fffd86;
+.footer-root footer .input-group button {
+  background-color: #e3b62c;
   color: #3c1f0c;
-  padding: 10px 20px;
+  padding: 12px 16px;
   border: none;
   border-radius: 5px;
   font-weight: bold;
@@ -75,35 +81,51 @@ footer input {
   transition: background-color 0.3s ease;
 }
 
- button:hover {
-  background-color: #e6c200; /* Jaune plus foncé au survol */
+.footer-root footer .input-group button:hover {
+  background-color: #ffe60d;
 }
 
-/* Section légale */
-.legal {
+.footer-root footer .footer-links ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-root footer .footer-links li a {
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  font-size: 15px;
+  transition: color 0.3s ease;
+}
+
+.footer-root footer .footer-links li a:hover {
+  color: #ffe60d;
+}
+
+.footer-root footer .logo-img {
+  width: 120px;
+}
+
+/* ======= LÉGAL ========== */
+.footer-root footer + .legal {
+  background-color: #2a1408;
+  color: rgba(255, 255, 255, 0.6);
   text-align: center;
   padding: 20px;
-  background: #2a1408; /* Couleur légèrement plus sombre */
-  color: rgba(255, 255, 255, 0.6);
-  border-top: 1px solid rgba(255, 255, 255, 0.2);
   font-size: 0.9em;
 }
 
-/* Responsive */
-@media screen and (max-width: 800px) {
-  footer .container {
-    grid-template-columns: repeat(2, 1fr); /* Deux colonnes sur mobile */
+/* ======= RESPONSIVE ======= */
+@media screen and (max-width: 600px) {
+  .footer-root .footerContact h1 {
+    font-size: 24px;
   }
 
-  footer img {
-    margin: 0 auto 20px;
+  .footer-root footer .input-group {
+    flex-direction: column;
   }
 
-  footer ul {
-    text-align: center;
-  }
-
-  .legal {
-    font-size: 0.8em;
+  .footer-root footer .input-group input,
+  .footer-root footer .input-group button {
+    width: 100%;
   }
 }

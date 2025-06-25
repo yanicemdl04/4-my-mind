@@ -6,6 +6,10 @@ import { Link } from 'react-router-dom';
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
+  const handleLinkClick = () => {
+    setIsOpen(false); // Ferme le menu déroulant lors du clic sur un lien
+  };
+
   return (
     <header className="navbar">
       <div className="container">
@@ -24,14 +28,25 @@ const Navbar = () => {
           </button>
 
           {/* Menu */}
-          <div className={`col-md-8 ${isOpen ? 'open' : ''}`}>
-            <ul className='nav-menu d-flex justify-content-space-between list-unstyled mb-0'>
-              <li className='nav-item'><Link to='/' className='nav-link'>Accueil</Link></li>
-              <li className='nav-item'><Link to='/about' className='nav-link'>About_us</Link></li>
-              <li className='nav-item'><Link to='/contact' className='nav-link'>Nous_contacter</Link></li>
-              <li className='nav-item connexion'><Link to='/login' className='nav-link'>Login</Link></li>
+          <nav className={`nav-menu${isOpen ? ' open' : ''}`}>
+            <ul
+              className="nav-list d-flex flex-column flex-md-row justify-content-space-between list-unstyled mb-0"
+              style={{ gap: '2rem' }} // Ajoute un espace horizontal entre les items
+            >
+              <li className='nav-item'>
+                <Link to='/' className='nav-link' onClick={handleLinkClick}>Accueil</Link>
+              </li>
+              <li className='nav-item'>
+                <Link to='/about' className='nav-link' onClick={handleLinkClick}>About_us</Link>
+              </li>
+              <li className='nav-item'>
+                <Link to='/contact' className='nav-link' onClick={handleLinkClick}>Nous_contacter</Link>
+              </li>
+              <li className='nav-item connexion'>
+                <Link to='/login' className='nav-link' onClick={handleLinkClick}>Login</Link>
+              </li>
             </ul>
-          </div>
+          </nav>
         </div>
       </div>
     </header>

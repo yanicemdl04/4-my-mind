@@ -1,0 +1,174 @@
+/* PAS de styles globaux ici ! */
+
+.login-signin-page {
+  font-family: 'Rubik', sans-serif;
+}
+
+.login-signin-page .container {
+  display: flex;
+  height: 100vh;
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: center;
+}
+
+.login-signin-page .left {
+  width: 440px;
+  min-width: 320px;
+  max-width: 100%;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 2px 24px 0 rgba(0,0,0,0.07);
+  z-index: 2;
+  animation-name: left;
+  animation-duration: 1s;
+  animation-fill-mode: both;
+  animation-delay: 1s;
+}
+
+.login-signin-page .right {
+  flex: 1;
+  min-width: 0;
+  height: 100vh;
+  display: block;
+  position: relative;
+  background-color: black;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  transition: 0.8s;
+}
+
+.login-signin-page .header > h2 {
+  margin: 0;
+  color: gold;
+}
+
+.login-signin-page .header > h4 {
+  margin-top: 10px;
+  font-weight: normal;
+  font-size: 15px;
+  color: rgba(0,0,0,.4);
+}
+
+.login-signin-page .form {
+  max-width: 80%;
+  display: flex;
+  flex-direction: column;
+}
+
+.login-signin-page .form > p {
+  text-align: right;
+}
+
+.login-signin-page .form > p > a {
+  color: #000;
+  font-size: 14px;
+}
+
+.login-signin-page .form-field {
+  height: 46px;
+  padding: 0 16px;
+  border: 2px solid #ddd;
+  border-radius: 4px;
+  font-family: 'Rubik', sans-serif;
+  outline: 0;
+  transition: .2s;
+  margin-top: 20px;
+}
+
+.login-signin-page .form-field:focus {
+  border-color: #0f7ef1;
+}
+
+.login-signin-page .form > button,
+.login-signin-page .form-field[type="submit"] {
+  padding: 12px 10px;
+  border: 0;
+  background: linear-gradient(90deg, gold 0%, #f7c873 100%);
+  border-radius: 3px;
+  margin-top: 10px;
+  color: #fff;
+  letter-spacing: 1px;
+  font-family: 'Rubik', sans-serif;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.login-signin-page .animation {
+  animation-name: move;
+  animation-duration: .4s;
+  animation-fill-mode: both;
+  animation-delay: 2s;
+}
+
+.login-signin-page .a1 { animation-delay: 2s; }
+.login-signin-page .a2 { animation-delay: 2.1s; }
+.login-signin-page .a3 { animation-delay: 2.2s; }
+.login-signin-page .a4 { animation-delay: 2.3s; }
+.login-signin-page .a5 { animation-delay: 2.4s; }
+.login-signin-page .a6 { animation-delay: 2.5s; }
+
+@keyframes move {
+  0% { opacity: 0; visibility: hidden; transform: translateY(-40px);}
+  100% { opacity: 1; visibility: visible; transform: translateY(0);}
+}
+@keyframes left {
+  0% { opacity: 0; width: 0;}
+  100% { opacity: 1; padding: 20px 40px; width: 440px;}
+}
+
+/* Responsive */
+.login-signin-page .signin-responsive { flex-wrap: wrap; }
+@media (max-width: 900px) {
+  .login-signin-page .container,
+  .login-signin-page .signin-responsive {
+    flex-direction: column;
+    height: auto;
+  }
+  .login-signin-page .left,
+  .login-signin-page .right {
+    width: 100% !important;
+    min-width: 0;
+    padding: 24px 0;
+    height: auto;
+  }
+  .login-signin-page .right {
+    min-height: 180px;
+    height: 180px;
+  }
+  .login-signin-page .form {
+    max-width: 100%;
+  }
+}
+
+/* Labels au-dessus des champs */
+.login-signin-page .form-group {
+  display: flex;
+  flex-direction: column;
+  margin-top: 18px;
+}
+.login-signin-page .form-label {
+  font-size: 1.05rem;
+  font-weight: 500;
+  margin-bottom: 6px;
+  color: #222;
+}
+
+.login-signin-page .signin-image-bg {
+  opacity: 0;
+  transition: opacity 0.7s cubic-bezier(.4,2,.6,1);
+  will-change: opacity;
+}
+
+.login-signin-page .signin-image-bg.fade-in {
+  opacity: 1;
+}
+
+.login-signin-page .signin-image-bg.fade-out {
+  opacity: 0;
+}

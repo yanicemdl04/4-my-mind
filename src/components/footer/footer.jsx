@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 
 const Footer = () => {
   return (
-    <>
+    <div className="footer-root">
       <section className='footerContact'>
         <div className='container'>
           <div className='send flex'>
@@ -48,7 +48,7 @@ const Footer = () => {
       <div className='legal'>
         <span>© 2025 By YaniceFamous.</span>
       </div>
-    </>
+    </div>
   )
 }
 
