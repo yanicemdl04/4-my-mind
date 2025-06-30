@@ -12,7 +12,7 @@ const ChatbotPage = lazy(() => import('./pages/chatbot/ChatbotPage'));
 const AboutPage = lazy(() => import('./pages/about/AboutPage'));
 const ContactPage = lazy(() => import('./pages/contact/ContactPage'));
 const LoginPage = lazy(() => import('./pages/login/LoginPage'));
-const SignInPage = lazy(() => import('./pages/SignIn/SignInPage'));
+const SignInPage = lazy(() => import('./pages/login/SignInPage'));
 const JournalPage = lazy(() => import('./pages/journal/JournalPage'));
 const ExercisesPage = lazy(() => import('./pages/exercises/ExercisesPage'));
 const MoodTrackerPage = lazy(() => import('./pages/mood-tracker/MoodTrackerPage'));
