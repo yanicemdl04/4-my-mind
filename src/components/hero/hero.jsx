@@ -1,31 +1,80 @@
-import React from 'react'
-import './hero.css'
-import arrow from '../../assets/images/fleche-droite.png'
+import React from 'react';
+import { motion } from 'framer-motion';
+import { ArrowRight } from 'lucide-react';
+import './hero.css';
 
-const Hero = ({heroCount, setHeroCount, heroData}) => {
+const Hero = ({ heroCount, setHeroCount, heroData }) => {
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.3
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.8,
+        ease: "easeOut"
+      }
+    }
+  };
+
   return (
-    <div className='hero-design'>
-      <div className="hero-text">
-        <span><span><p>{heroData.text1  || "Texte par défaut 1"}</p></span></span>
-        <p>{heroData.text2  || "Texte par défaut 2"}</p>
-      </div>
+    <div className="hero-design">
+      <motion.div 
+        className="hero-text"
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+        key={heroCount} // Force re-animation on hero change
+      >
+        <motion.p variants={itemVariants} className="text-4xl md:text-6xl font-bold mb-4">
+          {heroData.text1 || "Texte par défaut 1"}
+        </motion.p>
+        <motion.p variants={itemVariants} className="text-xl md:text-2xl">
+          {heroData.text2 || "Texte par défaut 2"}
+        </motion.p>
+      </motion.div>
 
-      <div className="hero-explore">
+      <motion.div 
+        className="hero-explore"
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ delay: 1, duration: 0.5 }}
+        whileHover={{ scale: 1.05, y: -5 }}
+        whileTap={{ scale: 0.95 }}
+      >
         <p>Explorez plus</p>
-        <img src={arrow} alt='fleche'/>
-      </div>
+        <ArrowRight className="w-6 h-6" />
+      </motion.div>
 
-      <div className="hero-dots-play">
+      <motion.div 
+        className="hero-dots-play"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.2, duration: 0.5 }}
+      >
         <ul className="hero-dots">
-          <li onClick={()=>setHeroCount(0)} className={heroCount===0?"hero-dot orange":"hero-dot" }></li>
-          <li onClick={()=>setHeroCount(1)} className={heroCount===1?"hero-dot orange":"hero-dot" }></li>
-          <li onClick={()=>setHeroCount(2)} className={heroCount===2?"hero-dot orange":"hero-dot" }></li>
-          <li onClick={()=>setHeroCount(3)} className={heroCount===3?"hero-dot orange":"hero-dot" }></li>
+          {[0, 1, 2, 3].map((index) => (
+            <motion.li
+              key={index}
+              onClick={() => setHeroCount(index)}
+              className={heroCount === index ? "hero-dot orange" : "hero-dot"}
+              whileHover={{ scale: 1.2 }}
+              whileTap={{ scale: 0.9 }}
+            />
+          ))}
         </ul>
-      </div>
-      
+      </motion.div>
     </div>
-  )
-}
+  );
+};
 
-export default Hero
+export default Hero;
