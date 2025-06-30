@@ -5,9 +5,6 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-<<<<<<< HEAD
-    extend: {},
-=======
     extend: {
       fontFamily: {
         'alice': ['Alice', 'serif'],
@@ -20,7 +17,6 @@ export default {
         'secondary': '#1E40AF',
       }
     },
->>>>>>> e6506250cbf9858bbba40b58b01a9174722a5a59
   },
   plugins: [],
 }

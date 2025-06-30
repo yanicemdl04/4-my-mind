@@ -1,8 +1,5 @@
 import React, { useState } from 'react';
 import { Phone, Mail, MessageCircle, Heart, Send, User, AtSign, FileText } from 'lucide-react';
-import Navbar from '../../components/navbar/navbar';
-import Footer from '../../components/footer/footer';
-import { motion } from 'framer-motion';
 
 const ContactPage = () => {
   const [formData, setFormData] = useState({
@@ -12,22 +9,22 @@ const ContactPage = () => {
     message: '',
     requestCall: false
   });
-
+  
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
   const handleInputChange = (e) => {
-    const { name, value, type, checked } = e.target;
+    const { name, value, type } = e.target;
     setFormData(prev => ({
       ...prev,
-      [name]: type === 'checkbox' ? checked : value
+      [name]: type === 'checkbox' ? e.target.checked : value
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-
+    
     // Simulation d'envoi
     setTimeout(() => {
       setIsSubmitting(false);
@@ -38,7 +35,6 @@ const ContactPage = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-amber-50 via-yellow-50 to-orange-50 pt-20">
-      <Navbar />
       {/* Header avec illustration d'écoute empathique */}
       <div className="relative overflow-hidden bg-gradient-to-r from-yellow-100 to-amber-100 py-16">
         <div className="absolute inset-0 bg-gradient-to-r from-yellow-200/20 to-amber-200/20"></div>
@@ -199,9 +195,19 @@ const ContactPage = () => {
                     type="submit"
                     disabled={isSubmitting}
                     className="group relative px-12 py-4 text-xl font-bold rounded-2xl transition-all duration-300 transform hover:scale-105 hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
-                    style={{
-                      background: 'linear-gradient(90deg, gold 0%, #f7c873 100%)',
+                    style={{ 
+                      backgroundColor: '#e3b62c', 
                       color: '#3c1f0c',
+                    }}
+                    onMouseEnter={(e) => {
+                      if (!isSubmitting) {
+                        e.currentTarget.style.backgroundColor = '#ffe60d';
+                      }
+                    }}
+                    onMouseLeave={(e) => {
+                      if (!isSubmitting) {
+                        e.currentTarget.style.backgroundColor = '#e3b62c';
+                      }
                     }}
                   >
                     <span className="flex items-center">
@@ -263,7 +269,6 @@ const ContactPage = () => {
           </div>
         </div>
       </div>
-      <Footer />
     </div>
   );
 };

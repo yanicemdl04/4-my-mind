@@ -6,6 +6,7 @@ import ChatbotPage from './pages/chatbot/ChatbotPage';
 import AboutPage from './pages/about/AboutPage';
 import ContactPage from './pages/contact/ContactPage';
 import LoginPage from './pages/login/LoginPage';
+import SignInPage from './pages/SignIn/SignInPage';
 import JournalPage from './pages/journal/JournalPage';
 import ExercisesPage from './pages/exercises/ExercisesPage';
 import MoodTrackerPage from './pages/mood-tracker/MoodTrackerPage';
@@ -18,6 +19,7 @@ const App = () => {
       <Route path="/about" element={<AboutPage />} />
       <Route path="/contact" element={<ContactPage />} />
       <Route path="/login" element={<LoginPage />} />
+      <Route path="/signin" element={<SignInPage />} />
       <Route path="/journal" element={<JournalPage />} />
       <Route path="/exercises" element={<ExercisesPage />} />
       <Route path="/mood-tracker" element={<MoodTrackerPage />} />
