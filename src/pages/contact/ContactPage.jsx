@@ -1,5 +1,18 @@
 import React, { useState } from 'react';
-import { Phone, Mail, MessageCircle, Heart, Send, User, AtSign, FileText } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { 
+  Phone, 
+  Mail, 
+  MessageCircle, 
+  MapPin, 
+  Send, 
+  User, 
+  AtSign, 
+  FileText,
+  Clock,
+  CheckCircle
+} from 'lucide-react';
+import Navbar from '../../components/navbar/navbar';
 
 const ContactPage = () => {
   const [formData, setFormData] = useState({
@@ -12,6 +25,45 @@ const ContactPage = () => {
   
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+
+  const contactInfo = [
+    {
+      icon: Mail,
+      title: 'Email',
+      value: 'contact@4mymind.com',
+      description: 'Réponse sous 24h'
+    },
+    {
+      icon: Phone,
+      title: 'Téléphone',
+      value: '+33 1 23 45 67 89',
+      description: 'Lun-Ven 9h-18h'
+    },
+    {
+      icon: MapPin,
+      title: 'Adresse',
+      value: '123 Rue du Bien-être',
+      description: 'Paris, France'
+    }
+  ];
+
+  const features = [
+    {
+      icon: MessageCircle,
+      title: 'Écoute bienveillante',
+      description: 'Nous vous écoutons sans jugement, dans un espace sûr et confidentiel.'
+    },
+    {
+      icon: Clock,
+      title: 'Réponse rapide',
+      description: 'Nous nous engageons à vous répondre dans les 24h maximum.'
+    },
+    {
+      icon: CheckCircle,
+      title: 'Accompagnement personnalisé',
+      description: 'Chaque personne est unique, notre soutien s\'adapte à vos besoins.'
+    }
+  ];
 
   const handleInputChange = (e) => {
     const { name, value, type } = e.target;
@@ -29,243 +81,285 @@ const ContactPage = () => {
     setTimeout(() => {
       setIsSubmitting(false);
       setSubmitted(true);
-      setTimeout(() => setSubmitted(false), 3000);
+      setTimeout(() => {
+        setSubmitted(false);
+        setFormData({
+          name: '',
+          email: '',
+          subject: '',
+          message: '',
+          requestCall: false
+        });
+      }, 3000);
     }, 1500);
   };
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.5
+      }
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-yellow-50 to-orange-50 pt-20">
-      {/* Header avec illustration d'écoute empathique */}
-      <div className="relative overflow-hidden bg-gradient-to-r from-yellow-100 to-amber-100 py-16">
-        <div className="absolute inset-0 bg-gradient-to-r from-yellow-200/20 to-amber-200/20"></div>
-        <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <div className="flex justify-center mb-6">
-              <div className="relative">
-                <div className="w-24 h-24 bg-gradient-to-br from-yellow-300 to-amber-400 rounded-full flex items-center justify-center shadow-lg transform hover:scale-105 transition-transform duration-300">
-                  <Heart className="w-12 h-12 text-amber-800 animate-pulse" style={{ color: '#3c1f0c' }} />
-                </div>
-                <div className="absolute -top-2 -right-2 w-8 h-8 bg-yellow-200 rounded-full flex items-center justify-center shadow-md">
-                  <MessageCircle className="w-4 h-4" style={{ color: '#daa520' }} />
-                </div>
-              </div>
+    <div className="min-h-screen bg-light">
+      <Navbar />
+      
+      {/* Hero Section */}
+      <section className="section-padding bg-gradient-to-br from-primary-50 to-accent/10">
+        <div className="container-airbnb">
+          <motion.div 
+            className="text-center max-w-4xl mx-auto"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <div className="w-20 h-20 bg-gradient-to-br from-accent to-primary-600 rounded-3xl flex items-center justify-center mx-auto mb-8 shadow-airbnb">
+              <MessageCircle className="w-10 h-10 text-white" />
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold mb-4 tracking-tight" style={{ color: '#3c1f0c' }}>
+            <h1 className="text-5xl md:text-6xl font-bold text-dark-900 mb-6">
               Parle-nous
             </h1>
-            <p className="text-xl md:text-2xl font-medium mb-6" style={{ color: '#daa520' }}>
-              Nous sommes là pour t'écouter
+            <p className="text-xl text-dark-600 mb-8">
+              Nous sommes là pour t'écouter et t'accompagner dans ton parcours vers le bien-être
             </p>
-            <p className="text-lg max-w-2xl mx-auto leading-relaxed" style={{ color: '#915a17' }}>
-              Ton bien-être nous tient à cœur. N'hésite pas à nous faire part de tes questions, préoccupations ou simplement à partager ce qui te préoccupe. Chaque message est important.
-            </p>
-          </div>
+          </motion.div>
         </div>
-      </div>
+      </section>
 
-      {/* Formulaire de contact */}
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-xl border border-yellow-200/50 overflow-hidden">
-          <div className="px-8 py-12">
+      <div className="container-airbnb py-16">
+        <div className="grid lg:grid-cols-3 gap-12">
+          {/* Contact Form */}
+          <div className="lg:col-span-2">
             {submitted ? (
-              <div className="text-center py-12">
-                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <Heart className="w-8 h-8 text-green-600" />
+              <motion.div 
+                className="card-airbnb text-center py-16"
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5 }}
+              >
+                <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <CheckCircle className="w-10 h-10 text-green-600" />
                 </div>
-                <h3 className="text-2xl font-bold mb-4" style={{ color: '#3c1f0c' }}>
-                  Merci pour ton message
+                <h3 className="text-3xl font-bold text-dark-900 mb-4">
+                  Message envoyé !
                 </h3>
-                <p className="text-lg" style={{ color: '#daa520' }}>
-                  Nous avons bien reçu ton message et nous te répondrons très bientôt.
+                <p className="text-lg text-dark-600">
+                  Nous avons bien reçu votre message et vous répondrons très bientôt.
                 </p>
-              </div>
+              </motion.div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-8">
-                {/* Nom et Email */}
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div className="relative">
-                    <label htmlFor="name" className="block text-sm font-semibold mb-3" style={{ color: '#3c1f0c' }}>
-                      Ton prénom
+              <motion.div 
+                className="card-airbnb"
+                variants={containerVariants}
+                initial="hidden"
+                animate="visible"
+              >
+                <motion.h2 
+                  className="text-3xl font-bold text-dark-900 mb-8"
+                  variants={itemVariants}
+                >
+                  Envoyez-nous un message
+                </motion.h2>
+                
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  {/* Nom et Email */}
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <motion.div variants={itemVariants}>
+                      <label htmlFor="name" className="block text-sm font-medium text-dark-900 mb-2">
+                        Votre nom
+                      </label>
+                      <div className="relative">
+                        <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-dark-400" />
+                        <input
+                          type="text"
+                          id="name"
+                          name="name"
+                          value={formData.name}
+                          onChange={handleInputChange}
+                          className="input-airbnb pl-10"
+                          placeholder="Votre nom complet"
+                          required
+                        />
+                      </div>
+                    </motion.div>
+                    
+                    <motion.div variants={itemVariants}>
+                      <label htmlFor="email" className="block text-sm font-medium text-dark-900 mb-2">
+                        Votre email
+                      </label>
+                      <div className="relative">
+                        <AtSign className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-dark-400" />
+                        <input
+                          type="email"
+                          id="email"
+                          name="email"
+                          value={formData.email}
+                          onChange={handleInputChange}
+                          className="input-airbnb pl-10"
+                          placeholder="votre.email@exemple.com"
+                          required
+                        />
+                      </div>
+                    </motion.div>
+                  </div>
+
+                  {/* Sujet */}
+                  <motion.div variants={itemVariants}>
+                    <label htmlFor="subject" className="block text-sm font-medium text-dark-900 mb-2">
+                      Sujet
                     </label>
                     <div className="relative">
-                      <User className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5" style={{ color: '#daa520' }} />
+                      <FileText className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-dark-400" />
                       <input
                         type="text"
-                        id="name"
-                        name="name"
-                        value={formData.name}
+                        id="subject"
+                        name="subject"
+                        value={formData.subject}
                         onChange={handleInputChange}
-                        className="w-full pl-12 pr-4 py-4 rounded-2xl border-2 border-transparent focus:border-yellow-400 focus:outline-none transition-all duration-300 text-lg placeholder-amber-400"
-                        style={{ backgroundColor: '#eacd5a', color: '#3c1f0c' }}
-                        placeholder="Comment t'appelles-tu ?"
+                        className="input-airbnb pl-10"
+                        placeholder="De quoi souhaitez-vous parler ?"
                         required
                       />
                     </div>
-                  </div>
-                  
-                  <div className="relative">
-                    <label htmlFor="email" className="block text-sm font-semibold mb-3" style={{ color: '#3c1f0c' }}>
-                      Ton email
+                  </motion.div>
+
+                  {/* Message */}
+                  <motion.div variants={itemVariants}>
+                    <label htmlFor="message" className="block text-sm font-medium text-dark-900 mb-2">
+                      Votre message
                     </label>
-                    <div className="relative">
-                      <AtSign className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5" style={{ color: '#daa520' }} />
-                      <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleInputChange}
-                        className="w-full pl-12 pr-4 py-4 rounded-2xl border-2 border-transparent focus:border-yellow-400 focus:outline-none transition-all duration-300 text-lg placeholder-amber-400"
-                        style={{ backgroundColor: '#eacd5a', color: '#3c1f0c' }}
-                        placeholder="ton.email@exemple.com"
-                        required
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                {/* Sujet */}
-                <div className="relative">
-                  <label htmlFor="subject" className="block text-sm font-semibold mb-3" style={{ color: '#3c1f0c' }}>
-                    Sujet de ton message
-                  </label>
-                  <div className="relative">
-                    <FileText className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5" style={{ color: '#daa520' }} />
-                    <input
-                      type="text"
-                      id="subject"
-                      name="subject"
-                      value={formData.subject}
-                      onChange={handleInputChange}
-                      className="w-full pl-12 pr-4 py-4 rounded-2xl border-2 border-transparent focus:border-yellow-400 focus:outline-none transition-all duration-300 text-lg placeholder-amber-400"
-                      style={{ backgroundColor: '#eacd5a', color: '#3c1f0c' }}
-                      placeholder="De quoi aimerais-tu parler ?"
-                      required
-                    />
-                  </div>
-                </div>
-
-                {/* Message */}
-                <div className="relative">
-                  <label htmlFor="message" className="block text-sm font-semibold mb-3" style={{ color: '#3c1f0c' }}>
-                    Ton message
-                  </label>
-                  <div className="relative">
-                    <MessageCircle className="absolute left-4 top-6 w-5 h-5" style={{ color: '#daa520' }} />
                     <textarea
                       id="message"
                       name="message"
                       value={formData.message}
                       onChange={handleInputChange}
                       rows={6}
-                      className="w-full pl-12 pr-4 py-4 rounded-2xl border-2 border-transparent focus:border-yellow-400 focus:outline-none transition-all duration-300 text-lg placeholder-amber-400 resize-none"
-                      style={{ backgroundColor: '#eacd5a', color: '#3c1f0c' }}
-                      placeholder="Partage ce qui te préoccupe... Nous sommes là pour t'écouter sans jugement."
+                      className="input-airbnb resize-none"
+                      placeholder="Partagez ce qui vous préoccupe... Nous sommes là pour vous écouter."
                       required
                     />
-                  </div>
-                </div>
+                  </motion.div>
 
-                {/* Option d'appel */}
-                <div className="flex items-center space-x-4 p-6 rounded-2xl" style={{ backgroundColor: '#f7f3e9' }}>
-                  <input
-                    type="checkbox"
-                    id="requestCall"
-                    name="requestCall"
-                    checked={formData.requestCall}
-                    onChange={handleInputChange}
-                    className="w-5 h-5 rounded border-2 border-yellow-400 text-yellow-500 focus:ring-yellow-400 focus:ring-2"
-                  />
-                  <label htmlFor="requestCall" className="flex items-center text-lg font-medium cursor-pointer" style={{ color: '#3c1f0c' }}>
-                    <Phone className="w-5 h-5 mr-3" style={{ color: '#daa520' }} />
-                    J'aimerais être rappelé(e) pour en discuter
-                  </label>
-                </div>
-
-                {/* Message d'encouragement */}
-                <div className="text-center py-4">
-                  <p className="text-lg font-medium italic" style={{ color: '#daa520' }}>
-                    "Tu peux tout dire ici. Ton courage à nous écrire est déjà un premier pas."
-                  </p>
-                </div>
-
-                {/* Bouton d'envoi */}
-                <div className="flex justify-center pt-4">
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="group relative px-12 py-4 text-xl font-bold rounded-2xl transition-all duration-300 transform hover:scale-105 hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
-                    style={{ 
-                      backgroundColor: '#e3b62c', 
-                      color: '#3c1f0c',
-                    }}
-                    onMouseEnter={(e) => {
-                      if (!isSubmitting) {
-                        e.currentTarget.style.backgroundColor = '#ffe60d';
-                      }
-                    }}
-                    onMouseLeave={(e) => {
-                      if (!isSubmitting) {
-                        e.currentTarget.style.backgroundColor = '#e3b62c';
-                      }
-                    }}
+                  {/* Option d'appel */}
+                  <motion.div 
+                    variants={itemVariants}
+                    className="flex items-center space-x-3 p-4 bg-gray-50 rounded-xl"
                   >
-                    <span className="flex items-center">
+                    <input
+                      type="checkbox"
+                      id="requestCall"
+                      name="requestCall"
+                      checked={formData.requestCall}
+                      onChange={handleInputChange}
+                      className="w-4 h-4 text-accent focus:ring-accent border-gray-300 rounded"
+                    />
+                    <label htmlFor="requestCall" className="flex items-center text-dark-700 cursor-pointer">
+                      <Phone className="w-4 h-4 mr-2 text-dark-500" />
+                      J'aimerais être rappelé(e) pour en discuter
+                    </label>
+                  </motion.div>
+
+                  {/* Bouton d'envoi */}
+                  <motion.div 
+                    variants={itemVariants}
+                    className="flex justify-end"
+                  >
+                    <button
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="btn-primary disabled:opacity-50 disabled:cursor-not-allowed flex items-center space-x-2"
+                    >
                       {isSubmitting ? (
                         <>
-                          <div className="w-6 h-6 border-2 border-amber-800 border-t-transparent rounded-full animate-spin mr-3"></div>
-                          Envoi en cours...
+                          <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                          <span>Envoi en cours...</span>
                         </>
                       ) : (
                         <>
-                          <Send className="w-6 h-6 mr-3 group-hover:translate-x-1 transition-transform duration-300" />
-                          Envoyer mon message
+                          <Send className="w-4 h-4" />
+                          <span>Envoyer le message</span>
                         </>
                       )}
-                    </span>
-                  </button>
-                </div>
-              </form>
+                    </button>
+                  </motion.div>
+                </form>
+              </motion.div>
             )}
           </div>
-        </div>
 
-        {/* Section d'informations supplémentaires */}
-        <div className="mt-16 grid md:grid-cols-3 gap-8">
-          <div className="text-center p-6 bg-white/60 rounded-2xl backdrop-blur-sm border border-yellow-200/50">
-            <div className="w-12 h-12 bg-yellow-200 rounded-full flex items-center justify-center mx-auto mb-4">
-              <MessageCircle className="w-6 h-6" style={{ color: '#3c1f0c' }} />
-            </div>
-            <h3 className="text-lg font-bold mb-2" style={{ color: '#3c1f0c' }}>
-              Écoute bienveillante
-            </h3>
-            <p style={{ color: '#915a17' }}>
-              Nous t'écoutons sans jugement, dans un espace sûr et confidentiel.
-            </p>
-          </div>
+          {/* Sidebar */}
+          <div className="space-y-8">
+            {/* Contact Info */}
+            <motion.div 
+              className="card-airbnb"
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
+              <h3 className="text-xl font-bold text-dark-900 mb-6">
+                Informations de contact
+              </h3>
+              <div className="space-y-6">
+                {contactInfo.map((info, index) => {
+                  const Icon = info.icon;
+                  return (
+                    <div key={index} className="flex items-start space-x-4">
+                      <div className="w-10 h-10 bg-primary-50 rounded-xl flex items-center justify-center flex-shrink-0">
+                        <Icon className="w-5 h-5 text-accent" />
+                      </div>
+                      <div>
+                        <h4 className="font-medium text-dark-900">{info.title}</h4>
+                        <p className="text-dark-600">{info.value}</p>
+                        <p className="text-sm text-dark-500">{info.description}</p>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </motion.div>
 
-          <div className="text-center p-6 bg-white/60 rounded-2xl backdrop-blur-sm border border-yellow-200/50">
-            <div className="w-12 h-12 bg-yellow-200 rounded-full flex items-center justify-center mx-auto mb-4">
-              <Phone className="w-6 h-6" style={{ color: '#3c1f0c' }} />
-            </div>
-            <h3 className="text-lg font-bold mb-2" style={{ color: '#3c1f0c' }}>
-              Réponse rapide
-            </h3>
-            <p style={{ color: '#915a17' }}>
-              Nous nous engageons à te répondre dans les 24h maximum.
-            </p>
-          </div>
-
-          <div className="text-center p-6 bg-white/60 rounded-2xl backdrop-blur-sm border border-yellow-200/50">
-            <div className="w-12 h-12 bg-yellow-200 rounded-full flex items-center justify-center mx-auto mb-4">
-              <Heart className="w-6 h-6" style={{ color: '#3c1f0c' }} />
-            </div>
-            <h3 className="text-lg font-bold mb-2" style={{ color: '#3c1f0c' }}>
-              Accompagnement personnalisé
-            </h3>
-            <p style={{ color: '#915a17' }}>
-              Chaque personne est unique, notre soutien s'adapte à tes besoins.
-            </p>
+            {/* Features */}
+            <motion.div 
+              className="card-airbnb"
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+            >
+              <h3 className="text-xl font-bold text-dark-900 mb-6">
+                Notre engagement
+              </h3>
+              <div className="space-y-6">
+                {features.map((feature, index) => {
+                  const Icon = feature.icon;
+                  return (
+                    <div key={index} className="flex items-start space-x-4">
+                      <div className="w-10 h-10 bg-green-50 rounded-xl flex items-center justify-center flex-shrink-0">
+                        <Icon className="w-5 h-5 text-green-600" />
+                      </div>
+                      <div>
+                        <h4 className="font-medium text-dark-900 mb-1">{feature.title}</h4>
+                        <p className="text-sm text-dark-600">{feature.description}</p>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </motion.div>
           </div>
         </div>
       </div>

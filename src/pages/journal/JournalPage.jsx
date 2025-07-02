@@ -1,258 +1,384 @@
 import React, { useState } from 'react';
-import { BookOpen, Mic, Camera, Save, Calendar, Heart, Sparkles, Edit3 } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { 
+  BookOpen, 
+  Plus, 
+  Search, 
+  Filter, 
+  Calendar,
+  Edit3,
+  Trash2,
+  Eye,
+  Heart,
+  Smile,
+  Meh,
+  Frown
+} from 'lucide-react';
+import Navbar from '../../components/navbar/navbar';
 
 const JournalPage = () => {
-  const [currentEntry, setCurrentEntry] = useState({
-    title: '',
-    content: ''
-  });
-  const [isRecording, setIsRecording] = useState(false);
-  const [isSaving, setIsSaving] = useState(false);
-  const [saved, setSaved] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedFilter, setSelectedFilter] = useState('all');
+  const [showNewEntry, setShowNewEntry] = useState(false);
+  const [newEntry, setNewEntry] = useState({ title: '', content: '', mood: 'neutral' });
 
-  const pastEntries = [
+  const journalEntries = [
     {
-      id: '1',
-      date: '2024-01-15',
+      id: 1,
       title: 'Une journée pleine de gratitude',
-      content: 'Aujourd\'hui j\'ai réalisé combien les petites choses comptent...',
-      mood: 'joyful'
+      content: 'Aujourd\'hui j\'ai réalisé combien les petites choses comptent. Le sourire d\'un inconnu, le café du matin, la lumière dorée du coucher de soleil...',
+      date: '2024-01-15',
+      mood: 'happy',
+      readTime: '3 min'
     },
     {
-      id: '2',
-      date: '2024-01-14',
+      id: 2,
       title: 'Réflexions du soir',
-      content: 'Les défis d\'aujourd\'hui m\'ont appris quelque chose d\'important...',
-      mood: 'thoughtful'
+      content: 'Les défis d\'aujourd\'hui m\'ont appris quelque chose d\'important sur moi-même. Parfois, il faut accepter que tout ne se passe pas comme prévu...',
+      date: '2024-01-14',
+      mood: 'thoughtful',
+      readTime: '5 min'
     },
     {
-      id: '3',
-      date: '2024-01-13',
+      id: 3,
       title: 'Moment de paix',
-      content: 'La méditation de ce matin m\'a apporté une sérénité profonde...',
-      mood: 'peaceful'
+      content: 'La méditation de ce matin m\'a apporté une sérénité profonde. J\'ai senti mon esprit se calmer et mes pensées s\'apaiser...',
+      date: '2024-01-13',
+      mood: 'peaceful',
+      readTime: '2 min'
+    },
+    {
+      id: 4,
+      title: 'Défi personnel',
+      content: 'Aujourd\'hui j\'ai fait quelque chose qui me faisait peur. Parler en public n\'est jamais facile pour moi, mais j\'ai réussi...',
+      date: '2024-01-12',
+      mood: 'proud',
+      readTime: '4 min'
+    },
+    {
+      id: 5,
+      title: 'Journée difficile',
+      content: 'Parfois les journées sont plus dures que d\'autres. Aujourd\'hui était l\'une d\'entre elles, mais j\'ai appris à être bienveillant envers moi-même...',
+      date: '2024-01-11',
+      mood: 'sad',
+      readTime: '6 min'
+    },
+    {
+      id: 6,
+      title: 'Nouvelle découverte',
+      content: 'J\'ai découvert un nouveau livre qui m\'a complètement captivé. Il parle de résilience et de croissance personnelle...',
+      date: '2024-01-10',
+      mood: 'excited',
+      readTime: '3 min'
     }
   ];
 
-  const floatingElements = [
-    { id: 1, delay: '0s', size: 'w-3 h-3', position: 'top-10 left-10' },
-    { id: 2, delay: '1s', size: 'w-2 h-2', position: 'top-20 right-20' },
-    { id: 3, delay: '2s', size: 'w-4 h-4', position: 'top-40 left-1/4' },
-    { id: 4, delay: '3s', size: 'w-2 h-2', position: 'top-60 right-1/3' },
-    { id: 5, delay: '4s', size: 'w-3 h-3', position: 'bottom-40 left-20' }
-  ];
-
-  const handleSave = async () => {
-    if (!currentEntry.title.trim() || !currentEntry.content.trim()) return;
-    
-    setIsSaving(true);
-    setTimeout(() => {
-      setIsSaving(false);
-      setSaved(true);
-      setTimeout(() => {
-        setSaved(false);
-        setCurrentEntry({ title: '', content: '' });
-      }, 2000);
-    }, 1000);
+  const moodIcons = {
+    happy: { icon: Smile, color: '#10B981', bg: '#ECFDF5' },
+    sad: { icon: Frown, color: '#EF4444', bg: '#FEF2F2' },
+    neutral: { icon: Meh, color: '#6B7280', bg: '#F9FAFB' },
+    thoughtful: { icon: BookOpen, color: '#8B5CF6', bg: '#F5F3FF' },
+    peaceful: { icon: Heart, color: '#06B6D4', bg: '#F0F9FF' },
+    proud: { icon: Smile, color: '#F59E0B', bg: '#FFFBEB' },
+    excited: { icon: Smile, color: '#EC4899', bg: '#FDF2F8' }
   };
 
-  const toggleRecording = () => {
-    setIsRecording(!isRecording);
-    if (!isRecording) {
-      // Simulate voice recording
-      setTimeout(() => {
-        setIsRecording(false);
-        setCurrentEntry(prev => ({
-          ...prev,
-          content: prev.content + (prev.content ? ' ' : '') + 'Texte dicté ajouté...'
-        }));
-      }, 3000);
+  const filters = [
+    { id: 'all', label: 'Toutes les entrées' },
+    { id: 'recent', label: 'Récentes' },
+    { id: 'happy', label: 'Moments joyeux' },
+    { id: 'thoughtful', label: 'Réflexions' }
+  ];
+
+  const filteredEntries = journalEntries.filter(entry => {
+    const matchesSearch = entry.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         entry.content.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesFilter = selectedFilter === 'all' || 
+                         (selectedFilter === 'recent' && new Date(entry.date) > new Date('2024-01-13')) ||
+                         entry.mood === selectedFilter;
+    return matchesSearch && matchesFilter;
+  });
+
+  const handleNewEntry = () => {
+    setShowNewEntry(true);
+  };
+
+  const handleSaveEntry = () => {
+    // Logique de sauvegarde
+    setShowNewEntry(false);
+    setNewEntry({ title: '', content: '', mood: 'neutral' });
+  };
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.5
+      }
     }
   };
 
   return (
-    <div className="min-h-screen pt-20 relative overflow-hidden" style={{ backgroundColor: '#eacd5a' }}>
-      {/* Floating animated elements */}
-      {floatingElements.map((element) => (
-        <div
-          key={element.id}
-          className={`absolute ${element.size} ${element.position} rounded-full animate-bounce opacity-60`}
-          style={{ 
-            backgroundColor: '#ffe60d',
-            animationDelay: element.delay,
-            animationDuration: '3s'
-          }}
-        />
-      ))}
-
-      <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div className="min-h-screen bg-light">
+      <Navbar />
+      
+      <div className="container-airbnb pt-8 pb-16">
         {/* Header */}
-        <div className="text-center mb-12">
-          <div className="flex justify-center mb-6">
-            <div className="relative">
-              <div className="w-20 h-20 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg">
-                <BookOpen className="w-10 h-10" style={{ color: '#3c1f0c' }} />
-              </div>
-              <div className="absolute -top-2 -right-2 w-8 h-8 bg-gradient-to-br from-yellow-300 to-amber-400 rounded-full flex items-center justify-center">
-                <Edit3 className="w-4 h-4" style={{ color: '#3c1f0c' }} />
-              </div>
+        <motion.div 
+          className="flex flex-col md:flex-row md:items-center justify-between mb-12"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          <div className="flex items-center space-x-4 mb-6 md:mb-0">
+            <div className="w-16 h-16 bg-gradient-to-br from-accent to-primary-600 rounded-2xl flex items-center justify-center shadow-card">
+              <BookOpen className="w-8 h-8 text-white" />
+            </div>
+            <div>
+              <h1 className="text-4xl font-bold text-dark-900">
+                Mon Journal
+              </h1>
+              <p className="text-dark-600">
+                Votre espace d'expression personnelle
+              </p>
             </div>
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold mb-4" style={{ color: '#3c1f0c' }}>
-            Exprime-toi
-          </h1>
-          <p className="text-xl mb-4" style={{ color: '#915a17' }}>
-            Ton espace d'écriture libre et sécurisé
-          </p>
-          <p className="text-lg italic" style={{ color: '#daa520' }}>
-            "Tu peux tout dire ici"
-          </p>
-        </div>
+          
+          <button
+            onClick={handleNewEntry}
+            className="btn-primary flex items-center space-x-2"
+          >
+            <Plus className="w-4 h-4" />
+            <span>Nouvelle entrée</span>
+          </button>
+        </motion.div>
 
-        {saved ? (
-          <div className="text-center py-16">
-            <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6 animate-pulse">
-              <Heart className="w-8 h-8 text-green-600" />
+        {/* Search and Filters */}
+        <motion.div 
+          className="card-airbnb mb-8"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+        >
+          <div className="flex flex-col md:flex-row gap-4">
+            {/* Search */}
+            <div className="flex-1 relative">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-dark-400" />
+              <input
+                type="text"
+                placeholder="Rechercher dans vos entrées..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="input-airbnb pl-10"
+              />
             </div>
-            <h3 className="text-2xl font-bold mb-4" style={{ color: '#3c1f0c' }}>
-              Ton entrée a été sauvegardée
-            </h3>
-            <p className="text-lg" style={{ color: '#915a17' }}>
-              Merci d'avoir partagé tes pensées avec toi-même
-            </p>
+            
+            {/* Filters */}
+            <div className="flex items-center space-x-2">
+              <Filter className="w-5 h-5 text-dark-400" />
+              <select
+                value={selectedFilter}
+                onChange={(e) => setSelectedFilter(e.target.value)}
+                className="input-airbnb min-w-0"
+              >
+                {filters.map(filter => (
+                  <option key={filter.id} value={filter.id}>
+                    {filter.label}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
-        ) : (
-          <>
-            {/* Writing Area */}
-            <div className="bg-white/80 backdrop-blur-sm rounded-3xl p-8 mb-8 shadow-xl border border-white/50">
-              <div className="mb-6">
-                <input
-                  type="text"
-                  placeholder="Donne un titre à tes pensées..."
-                  value={currentEntry.title}
-                  onChange={(e) => setCurrentEntry(prev => ({ ...prev, title: e.target.value }))}
-                  className="w-full text-2xl font-bold bg-transparent border-none outline-none placeholder-amber-400"
-                  style={{ color: '#3c1f0c' }}
-                />
-                <div className="flex items-center mt-2 text-sm" style={{ color: '#daa520' }}>
-                  <Calendar className="w-4 h-4 mr-2" />
-                  {new Date().toLocaleDateString('fr-FR', { 
-                    weekday: 'long', 
-                    year: 'numeric', 
-                    month: 'long', 
-                    day: 'numeric' 
-                  })}
+        </motion.div>
+
+        {/* New Entry Modal */}
+        {showNewEntry && (
+          <motion.div 
+            className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+          >
+            <motion.div 
+              className="bg-white rounded-3xl p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+            >
+              <h2 className="text-2xl font-bold text-dark-900 mb-6">Nouvelle entrée</h2>
+              
+              <div className="space-y-6">
+                <div>
+                  <label className="block text-sm font-medium text-dark-900 mb-2">
+                    Titre
+                  </label>
+                  <input
+                    type="text"
+                    value={newEntry.title}
+                    onChange={(e) => setNewEntry({...newEntry, title: e.target.value})}
+                    className="input-airbnb"
+                    placeholder="Donnez un titre à votre entrée..."
+                  />
                 </div>
-              </div>
-
-              <div className="relative">
-                <textarea
-                  placeholder="Laisse tes pensées s'exprimer librement... Aucun jugement ici, juste toi et tes mots."
-                  value={currentEntry.content}
-                  onChange={(e) => setCurrentEntry(prev => ({ ...prev, content: e.target.value }))}
-                  className="w-full h-80 bg-transparent border-none outline-none resize-none text-lg leading-relaxed placeholder-amber-400"
-                  style={{ color: '#3c1f0c' }}
-                />
                 
-                {/* Floating sparkles */}
-                <Sparkles className="absolute top-4 right-4 w-5 h-5 opacity-30 animate-pulse" style={{ color: '#ffe60d' }} />
-                <Sparkles className="absolute bottom-10 left-6 w-4 h-4 opacity-20 animate-bounce" style={{ color: '#daa520', animationDelay: '1s' }} />
-              </div>
-
-              {/* Toolbar */}
-              <div className="flex items-center justify-between pt-6 border-t border-amber-200">
-                <div className="flex items-center space-x-4">
-                  <button
-                    onClick={toggleRecording}
-                    className={`flex items-center space-x-2 px-4 py-2 rounded-xl transition-all duration-300 ${
-                      isRecording 
-                        ? 'bg-red-100 text-red-600' 
-                        : 'hover:bg-amber-100'
-                    }`}
-                    style={{ color: isRecording ? '#dc2626' : '#915a17' }}
-                  >
-                    <Mic className={`w-5 h-5 ${isRecording ? 'animate-pulse' : ''}`} />
-                    <span className="text-sm font-medium">
-                      {isRecording ? 'Arrêter' : 'Dicter'}
-                    </span>
-                  </button>
-
-                  <button className="flex items-center space-x-2 px-4 py-2 rounded-xl hover:bg-amber-100 transition-colors duration-300">
-                    <Camera className="w-5 h-5" style={{ color: '#915a17' }} />
-                    <span className="text-sm font-medium" style={{ color: '#915a17' }}>
-                      Photo
-                    </span>
-                  </button>
+                <div>
+                  <label className="block text-sm font-medium text-dark-900 mb-2">
+                    Contenu
+                  </label>
+                  <textarea
+                    value={newEntry.content}
+                    onChange={(e) => setNewEntry({...newEntry, content: e.target.value})}
+                    className="input-airbnb resize-none"
+                    rows={8}
+                    placeholder="Exprimez vos pensées..."
+                  />
                 </div>
-
+                
+                <div>
+                  <label className="block text-sm font-medium text-dark-900 mb-2">
+                    Humeur
+                  </label>
+                  <div className="grid grid-cols-4 gap-3">
+                    {Object.entries(moodIcons).map(([mood, config]) => {
+                      const Icon = config.icon;
+                      return (
+                        <button
+                          key={mood}
+                          onClick={() => setNewEntry({...newEntry, mood})}
+                          className={`p-3 rounded-xl border-2 transition-all duration-200 ${
+                            newEntry.mood === mood 
+                              ? 'border-accent bg-primary-50' 
+                              : 'border-gray-200 hover:border-gray-300'
+                          }`}
+                        >
+                          <Icon className="w-6 h-6 mx-auto" style={{ color: config.color }} />
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+              
+              <div className="flex space-x-4 mt-8">
                 <button
-                  onClick={handleSave}
-                  disabled={isSaving || !currentEntry.title.trim() || !currentEntry.content.trim()}
-                  className="flex items-center space-x-2 px-6 py-3 rounded-2xl font-bold transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
-                  style={{ backgroundColor: '#e3b62c', color: '#3c1f0c' }}
-                  onMouseEnter={(e) => {
-                    if (!isSaving && currentEntry.title.trim() && currentEntry.content.trim()) {
-                      e.currentTarget.style.backgroundColor = '#ffe60d';
-                    }
-                  }}
-                  onMouseLeave={(e) => {
-                    if (!isSaving) {
-                      e.currentTarget.style.backgroundColor = '#e3b62c';
-                    }
-                  }}
+                  onClick={() => setShowNewEntry(false)}
+                  className="flex-1 btn-secondary"
                 >
-                  {isSaving ? (
-                    <>
-                      <div className="w-5 h-5 border-2 border-amber-800 border-t-transparent rounded-full animate-spin"></div>
-                      <span>Sauvegarde...</span>
-                    </>
-                  ) : (
-                    <>
-                      <Save className="w-5 h-5" />
-                      <span>Sauvegarder</span>
-                    </>
-                  )}
+                  Annuler
+                </button>
+                <button
+                  onClick={handleSaveEntry}
+                  className="flex-1 btn-primary"
+                >
+                  Sauvegarder
                 </button>
               </div>
-            </div>
-
-            {/* Past Entries */}
-            <div className="bg-white/60 backdrop-blur-sm rounded-3xl p-8 border border-white/50">
-              <h2 className="text-2xl font-bold mb-6" style={{ color: '#3c1f0c' }}>
-                Tes entrées précédentes
-              </h2>
-              
-              <div className="space-y-4">
-                {pastEntries.map((entry) => (
-                  <div
-                    key={entry.id}
-                    className="p-6 bg-white/40 rounded-2xl hover:bg-white/60 transition-all duration-300 cursor-pointer group"
-                  >
-                    <div className="flex items-start justify-between mb-3">
-                      <h3 className="text-lg font-bold group-hover:text-amber-700 transition-colors duration-300" style={{ color: '#3c1f0c' }}>
-                        {entry.title}
-                      </h3>
-                      <span className="text-sm" style={{ color: '#daa520' }}>
-                        {new Date(entry.date).toLocaleDateString('fr-FR')}
-                      </span>
-                    </div>
-                    <p className="text-sm leading-relaxed" style={{ color: '#915a17' }}>
-                      {entry.content.substring(0, 120)}...
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </>
+            </motion.div>
+          </motion.div>
         )}
 
-        {/* Encouragement Message */}
-        <div className="text-center mt-12 p-6 bg-white/40 backdrop-blur-sm rounded-2xl border border-white/50">
-          <Heart className="w-8 h-8 mx-auto mb-4 animate-pulse" style={{ color: '#daa520' }} />
-          <p className="text-lg font-medium italic" style={{ color: '#3c1f0c' }}>
-            "L'écriture est un voyage vers soi-même. Chaque mot compte."
-          </p>
-        </div>
+        {/* Journal Entries Grid */}
+        <motion.div 
+          className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+        >
+          {filteredEntries.map((entry) => {
+            const moodConfig = moodIcons[entry.mood];
+            const MoodIcon = moodConfig.icon;
+            
+            return (
+              <motion.div
+                key={entry.id}
+                variants={itemVariants}
+                className="card-airbnb hover-lift group cursor-pointer"
+              >
+                {/* Header */}
+                <div className="flex items-start justify-between mb-4">
+                  <div 
+                    className="w-10 h-10 rounded-xl flex items-center justify-center"
+                    style={{ backgroundColor: moodConfig.bg }}
+                  >
+                    <MoodIcon className="w-5 h-5" style={{ color: moodConfig.color }} />
+                  </div>
+                  <div className="flex items-center space-x-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                    <button className="p-2 hover:bg-gray-100 rounded-lg transition-colors duration-200">
+                      <Eye className="w-4 h-4 text-dark-500" />
+                    </button>
+                    <button className="p-2 hover:bg-gray-100 rounded-lg transition-colors duration-200">
+                      <Edit3 className="w-4 h-4 text-dark-500" />
+                    </button>
+                    <button className="p-2 hover:bg-red-50 rounded-lg transition-colors duration-200">
+                      <Trash2 className="w-4 h-4 text-red-500" />
+                    </button>
+                  </div>
+                </div>
+                
+                {/* Content */}
+                <h3 className="text-lg font-semibold text-dark-900 mb-3 line-clamp-2">
+                  {entry.title}
+                </h3>
+                
+                <p className="text-dark-600 mb-4 line-clamp-3">
+                  {entry.content}
+                </p>
+                
+                {/* Footer */}
+                <div className="flex items-center justify-between text-sm text-dark-500">
+                  <div className="flex items-center space-x-2">
+                    <Calendar className="w-4 h-4" />
+                    <span>
+                      {new Date(entry.date).toLocaleDateString('fr-FR', {
+                        day: 'numeric',
+                        month: 'short',
+                        year: 'numeric'
+                      })}
+                    </span>
+                  </div>
+                  <span>{entry.readTime}</span>
+                </div>
+              </motion.div>
+            );
+          })}
+        </motion.div>
+
+        {/* Empty State */}
+        {filteredEntries.length === 0 && (
+          <motion.div 
+            className="text-center py-16"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6 }}
+          >
+            <BookOpen className="w-16 h-16 text-dark-300 mx-auto mb-6" />
+            <h3 className="text-2xl font-bold text-dark-900 mb-4">
+              Aucune entrée trouvée
+            </h3>
+            <p className="text-dark-600 mb-8">
+              {searchTerm || selectedFilter !== 'all' 
+                ? 'Essayez de modifier vos critères de recherche'
+                : 'Commencez votre journal en créant votre première entrée'
+              }
+            </p>
+            <button
+              onClick={handleNewEntry}
+              className="btn-primary"
+            >
+              Créer ma première entrée
+            </button>
+          </motion.div>
+        )}
       </div>
     </div>
   );
