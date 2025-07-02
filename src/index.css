@@ -6,7 +6,7 @@
 /* Base styles inspirés d'Airbnb */
 @layer base {
   * {
-    @apply border-gray-200;
+    @apply border-dark-200;
   }
   
   body {
