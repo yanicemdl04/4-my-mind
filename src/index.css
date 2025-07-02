@@ -6,13 +6,15 @@
 /* Base styles inspirés d'Airbnb */
 @layer base {
   body {
-    @apply font-inter text-dark-900 bg-light antialiased;
+    @apply text-gray-900 bg-gray-50 antialiased;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
     font-feature-settings: 'cv11', 'ss01';
     font-variation-settings: 'opsz' 32;
   }
   
   h1, h2, h3, h4, h5, h6 {
-    @apply font-inter font-semibold text-dark-900;
+    @apply font-semibold text-gray-900;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
     letter-spacing: -0.025em;
   }
   
@@ -29,26 +31,26 @@
   }
   
   p {
-    @apply text-dark-600 leading-relaxed;
+    @apply text-gray-600 leading-relaxed;
   }
 }
 
 /* Composants réutilisables style Airbnb */
 @layer components {
   .btn-primary {
-    @apply bg-accent hover:bg-primary-600 text-white font-medium px-6 py-3 rounded-xl transition-all duration-200 shadow-card hover:shadow-card-hover transform hover:scale-105;
+    @apply bg-blue-500 hover:bg-blue-600 text-white font-medium px-6 py-3 rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105;
   }
   
   .btn-secondary {
-    @apply bg-white hover:bg-gray-50 text-dark-900 font-medium px-6 py-3 rounded-xl border border-gray-300 transition-all duration-200 shadow-card hover:shadow-card-hover;
+    @apply bg-white hover:bg-gray-50 text-gray-900 font-medium px-6 py-3 rounded-xl border border-gray-300 transition-all duration-200 shadow-lg hover:shadow-xl;
   }
   
   .card-airbnb {
-    @apply bg-white rounded-2xl shadow-card hover:shadow-airbnb transition-all duration-300 p-6 border border-gray-100;
+    @apply bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 p-6 border border-gray-100;
   }
   
   .input-airbnb {
-    @apply w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-accent focus:border-accent transition-all duration-200 bg-white text-dark-900 placeholder-gray-500;
+    @apply w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 bg-white text-gray-900 placeholder-gray-500;
   }
   
   .navbar-airbnb {
@@ -64,7 +66,7 @@
   }
   
   .text-gradient {
-    @apply bg-gradient-to-r from-accent to-primary-600 bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-blue-500 to-blue-600 bg-clip-text text-transparent;
   }
 }
 
@@ -107,7 +109,7 @@
 
 /* Focus states améliorés */
 .focus-ring {
-  @apply focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2;
+  @apply focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2;
 }
 
 /* Responsive typography */

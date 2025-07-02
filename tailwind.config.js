@@ -5,10 +5,6 @@ module.exports = {
     "./src/**/*.{js,ts,jsx,tsx}",
     "./src/**/*.css",
   ],
-  safelist: [
-    'font-inter',
-    'font-nunito'
-  ],
   darkMode: 'class',
   theme: {
     extend: {
