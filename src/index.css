@@ -5,10 +5,6 @@
 
 /* Base styles inspirés d'Airbnb */
 @layer base {
-  * {
-    @apply border-dark-200;
-  }
-  
   body {
     @apply font-inter text-dark-900 bg-light antialiased;
     font-feature-settings: 'cv11', 'ss01';
