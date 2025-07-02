@@ -4,12 +4,16 @@ module.exports = {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
+  safelist: [
+    'font-inter',
+    'font-nunito'
+  ],
   darkMode: 'class',
   theme: {
     extend: {
       fontFamily: {
         'inter': ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
-        'nunito': ['Nunito', 'sans-serif'],
+        'nunito': ['Nunito', 'system-ui', '-apple-system', 'sans-serif'],
       },
       colors: {
         // Palette principale inspirée d'Airbnb avec vos couleurs
