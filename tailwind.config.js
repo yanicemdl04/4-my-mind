@@ -1,3 +1,5 @@
+const colors = require('@tailwindcss/postcss/colors');
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
@@ -13,6 +15,8 @@ module.exports = {
         'nunito': ['Nunito', 'system-ui', '-apple-system', 'sans-serif'],
       },
       colors: {
+        // Include default gray colors
+        gray: colors.gray,
         // Palette principale inspirée d'Airbnb avec vos couleurs
         primary: {
           50: '#f0f9ff',
